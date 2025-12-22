@@ -1,0 +1,165 @@
+{
+  "database": {
+    "provider": "qdrant",
+    "connection": {
+      "host":"localhost",
+      "port":6333
+    }
+  },
+  
+  "collections": [
+    {
+      "name": "documents",
+      "description": "General documents collection",
+      "data_sources": [
+        {
+          "type": "folder",
+          "path": "./data/documents",
+          "recursive": true,
+          "file_patterns": ["*.pdf", "*.txt", "*.docx", "*.md"],
+          "exclude_patterns": ["*draft*", "*temp*"]
+        },
+        {
+          "type": "file",
+          "path": "D:/Projects and POCs/RAG for everyone/qsit_rag/anything.txt"
+        },
+        {
+          "type": "url",
+          "urls": [
+            "https://example.com/documentation",
+            "https://api.example.com/docs"
+          ],
+          "crawl_depth": 2
+        }
+      ],
+      "chunking_strategy": {
+                            "class": "SemanticChunker",
+                            "default_params": {
+                                "breakpoint_threshold": 0.7,
+                                "max_chunk_size": 1000,
+                                "min_chunk_size": 100,
+                                "buffer_size": 1
+                            }
+                        },
+      "embedding_override": null,
+      "metadata_schema": {
+        "source": "string",
+        "category": "string",
+        "date_created": "datetime",
+        "author": "string",
+        "tags": "array"
+      }
+    }
+  ],
+  
+  "embedding": {
+    "provider": "openai",
+    "model": "text-embedding-3-large",
+    "api_key": "${OPENAI_API_KEY}",
+    "batch_size": 128,
+    "dimensions": 3072,
+    "retry_config": {
+      "max_retries": 3,
+      "retry_delay": 1000,
+      "exponential_backoff": true
+    }
+  },
+
+  
+  "preprocessing": {
+    "text_cleaning": {
+      "remove_html": true,
+      "remove_urls": false,
+      "remove_emails": false,
+      "normalize_whitespace": true,
+      "lowercase": false,
+      "remove_special_chars": false
+    },
+    "document_parsing": {
+      "pdf": {
+        "extract_images": false,
+        "ocr_enabled": true,
+        "preserve_tables": true
+      },
+      "html": {
+        "extract_main_content": true,
+        "remove_scripts": true,
+        "remove_styles": true
+      }
+    },
+    "metadata_extraction": {
+      "extract_titles": true,
+      "extract_dates": true,
+      "extract_authors": true,
+      "custom_extractors": [
+        {
+          "name": "version_extractor",
+          "pattern": "v\\d+\\.\\d+\\.\\d+"
+        }
+      ]
+    }
+  },
+  
+  "indexing": {
+    "strategy": "incremental",
+    "deduplication": {
+      "enabled": true,
+      "method": "content_hash",
+      "similarity_threshold": 0.95
+    },
+    "versioning": {
+      "enabled": true,
+      "keep_versions": 3
+    },
+    "batch_processing": {
+      "batch_size": 100,
+      "parallel_workers": 4,
+      "rate_limit": 1000
+    }
+  },
+  
+  "query": {
+    "default_top_k": 5,
+    "similarity_threshold": 0.7,
+    "hybrid_search": {
+      "enabled": true,
+      "alpha": 0.5,
+      "keyword_weight": 0.3,
+      "semantic_weight": 0.7
+    },
+    "reranking": {
+      "enabled": true,
+      "model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+      "top_n": 10
+    },
+    "filters": {
+      "metadata_filters": ["category", "date_created", "author"],
+      "date_range": {
+        "enabled": true,
+        "default_days": 30
+      }
+    }
+  },
+  
+  "monitoring": {
+    "logging": {
+      "level": "INFO",
+      "file": "./logs/vector_db.log",
+      "rotation": "daily"
+    },
+    "metrics": {
+      "track_embeddings": true,
+      "track_queries": true,
+      "track_latency": true
+    }
+  },
+  
+  "cache": {
+    "enabled": true,
+    "provider": "redis",
+    "ttl": 3600,
+    "max_size": "1GB",
+    "embedding_cache": true,
+    "query_cache": true
+  }
+}

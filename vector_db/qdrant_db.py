@@ -12,9 +12,9 @@ from data.base_models.base_models import DistanceMetric
 from data.config.database_config import DatabaseConfig
 from data.base_models.search_result import VectorSearchResults
 from .base import BaseVectorDB
+from .vector_factory import register_vector_db
 
-
-
+@register_vector_db("qdrant")  # <--- Self-registration
 class QdrantDB(BaseVectorDB):
     _DISTANCE_MAP = {
         DistanceMetric.COSINE: models.Distance.COSINE,
@@ -22,9 +22,9 @@ class QdrantDB(BaseVectorDB):
         DistanceMetric.DOT: models.Distance.DOT,
     }
 
-    def __init__(self, confing:DatabaseConfig):
-        self.host = confing.connection.host
-        self.port = confing.connection.port
+    def __init__(self, config:DatabaseConfig):
+        self.host = config.connection.host
+        self.port = config.connection.port
 
         self.client = QdrantClient(host=self.host, port=self.port)
 

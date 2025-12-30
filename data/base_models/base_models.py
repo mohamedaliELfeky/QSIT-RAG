@@ -5,6 +5,13 @@ from enum import Enum
 
 
 
+
+class DistanceMetric(str, Enum):
+    COSINE = "Cosine"
+    EUCLIDEAN = "Euclidean"
+    DOT = "Dot"
+
+
 class SourceType(str, Enum):
     TXT = "text"
     DOCX = "docx"

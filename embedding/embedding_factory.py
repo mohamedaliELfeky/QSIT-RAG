@@ -15,6 +15,7 @@ def register_embedding(provider_name: str):
         return cls
     return decorator
 
+
 class EmbeddingFactory:
     """
     Factory that uses the dynamic registry.

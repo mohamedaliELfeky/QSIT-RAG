@@ -8,6 +8,7 @@ from .embedding_factory import register_embedding  # Import the decorator
 
 logger = logging.getLogger(__name__)
 
+
 @register_embedding("openai")  # <--- This registers the class automatically
 class OpenAIEmbedding(BaseEmbedding):
     def __init__(self, config: EmbeddingConfig):

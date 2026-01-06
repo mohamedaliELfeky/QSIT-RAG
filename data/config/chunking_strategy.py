@@ -3,53 +3,56 @@ from typing import Dict, Any
 
 from enum import Enum
 
+from pydantic import BaseModel, Field
+from typing import Dict, Any
+from enum import Enum
+
 class Strategy(str, Enum):
     # === Basic Strategies ===
-    CHARACTER = "CharacterChunker"
-    TOKEN = "TokenChunker"
-    WORD = "WordChunker"
-    SENTENCE = "SentenceChunker"
-    MULTI_SENTENCE = "MultiSentenceChunker"
-    PARAGRAPH = "ParagraphChunker"
-    RECURSIVE = "RecursiveChunker"
-    SLIDING_WINDOW = "SlidingWindowChunker"
+    CHARACTER = "character"
+    TOKEN = "token"
+    WORD = "word"
+    SENTENCE = "sentence"
+    MULTI_SENTENCE = "multi_sentence"
+    PARAGRAPH = "paragraph"
+    RECURSIVE = "recursive"
+    SLIDING_WINDOW = "sliding_window"
 
     # === Document Structure ===
-    MARKDOWN = "MarkdownChunker"
-    HTML = "HTMLChunker"
-    CODE = "CodeChunker"
+    MARKDOWN = "markdown"
+    HTML = "html"
+    CODE = "code"
 
     # === Format-Specific ===
-    JSON = "JSONChunker"
-    LATEX = "LaTeXChunker"
-    REGEX = "RegexChunker"
+    JSON = "json"
+    LATEX = "latex"
+    REGEX = "regex"
 
     # === Semantic & Embedding-Based ===
-    SEMANTIC = "SemanticChunker"
-    CLUSTER = "ClusterChunker"
-    LATE = "LateChunker"
+    SEMANTIC = "semantic"
+    CLUSTER = "cluster"
+    LATE = "late"
 
     # === LLM-Based ===
-    AGENTIC = "AgenticChunker"
-    PROPOSITION = "PropositionChunker"
-    DOCUMENT_SUMMARY = "DocumentSummaryChunker"
-    KEYWORD_SUMMARY = "KeywordSummaryChunker"
-    CONTEXTUAL = "ContextualChunker"
-    CONTEXTUAL_BM25 = "ContextualBM25Chunker"
+    AGENTIC = "agentic"
+    PROPOSITION = "proposition"
+    DOCUMENT_SUMMARY = "document_summary"
+    KEYWORD_SUMMARY = "keyword_summary"
+    CONTEXTUAL = "contextual"
+    CONTEXTUAL_BM25 = "contextual_bm25"
 
     # === Retrieval-Optimized ===
-    SENTENCE_WINDOW = "SentenceWindowChunker"
-    AUTO_MERGING = "AutoMergingChunker"
-    PARENT_DOCUMENT = "ParentDocumentChunker"
-    SMALL_TO_BIG = "SmallToBigChunker"
-    BIG_TO_SMALL = "BigToSmallChunker"
-    HIERARCHICAL = "HierarchicalChunker"
+    SENTENCE_WINDOW = "sentence_window"
+    AUTO_MERGING = "auto_merging"
+    PARENT_DOCUMENT = "parent_document"
+    SMALL_TO_BIG = "small_to_big"
+    BIG_TO_SMALL = "big_to_small"
+    HIERARCHICAL = "hierarchical"
 
     # === Hybrid/Combined ===
-    HYBRID = "HybridChunker"
-    ADAPTIVE = "AdaptiveChunker"
-
+    HYBRID = "hybrid"
+    ADAPTIVE = "adaptive"
 
 class ChunkingStrategy(BaseModel):
-    class_: Strategy = Field(alias="class") # 'class' is reserved in Python
+    class_: Strategy = Field(alias="class") 
     default_params: Dict[str, Any] = Field(default_factory=dict)

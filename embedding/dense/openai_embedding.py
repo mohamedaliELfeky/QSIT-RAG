@@ -4,12 +4,12 @@ from openai import OpenAI, OpenAIError
 
 from data.config.embedding_config import EmbeddingConfig
 from .dense_base import BaseDenseEmbedding
-from ..embedding_factory import register_embedding  # Import the decorator
+from ..embedding_factory import register_dense  # Import the decorator
 
 logger = logging.getLogger(__name__)
 
 
-@register_embedding("openai")  # <--- This registers the class automatically
+@register_dense("openai")  # <--- This registers the class automatically
 class OpenAIEmbedding(BaseDenseEmbedding):
     def __init__(self, config: EmbeddingConfig):
         super().__init__(config)

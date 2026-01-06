@@ -2,16 +2,22 @@ from pydantic import BaseModel
 from typing import List
 
 # --- 6. Query Config ---
+
 class HybridSearchConfig(BaseModel):
     enabled: bool
-    alpha: float
-    keyword_weight: float
-    semantic_weight: float
+    # Weights for Reciprocal Rank Fusion (RRF) or Linear combination
+    dense_weight: float = 0.5
+    sparse_weight: float = 0.5
+    colbert_weight: float = 0.0 # If ColBERT is used purely for reranking, this might be 0 during initial fetch
+    
+    # Thresholds
+    minimum_score: float = 0.0
 
 class RerankingConfig(BaseModel):
-    enabled: bool
-    model: str
-    top_n: int
+    enabled: bool = True  # Defaults to True as per your requirement
+    provider: str = "cross-encoder" # 'cross-encoder' or 'colbert' (if used as reranker only)
+    model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+    top_n: int = 5  # How many documents to send to the reranker
 
 class DateRangeConfig(BaseModel):
     enabled: bool

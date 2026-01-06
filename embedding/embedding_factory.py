@@ -1,36 +1,72 @@
-from typing import Dict, Type, Any
+from typing import Dict, Type, Any, Optional
 from data.config.embedding_config import EmbeddingConfig
-from .base import BaseEmbedding
 
-# 1. The Registry
-_EMBEDDING_REGISTRY: Dict[str, Type[BaseEmbedding]] = {}
+# Import the new Base classes
+from .dense.dense_base import BaseDenseEmbedding
+from .sparse.sparse_base import BaseSparseEmbedding
+from .reranking.reranking_base import BaseReranker
 
-def register_embedding(provider_name: str):
-    """
-    Decorator to register an embedding class.
-    Usage: @register_embedding("openai")
-    """
-    def decorator(cls: Type[BaseEmbedding]):
-        _EMBEDDING_REGISTRY[provider_name.lower()] = cls
+# Registries for each type
+_DENSE_REGISTRY: Dict[str, Type[BaseDenseEmbedding]] = {}
+_SPARSE_REGISTRY: Dict[str, Type[BaseSparseEmbedding]] = {}
+_RERANK_REGISTRY: Dict[str, Type[BaseReranker]] = {}
+
+# --- Registration Decorators ---
+
+def register_dense(provider_name: str):
+    def decorator(cls: Type[BaseDenseEmbedding]):
+        _DENSE_REGISTRY[provider_name.lower()] = cls
+        return cls
+    return decorator
+
+def register_sparse(provider_name: str):
+    def decorator(cls: Type[BaseSparseEmbedding]):
+        _SPARSE_REGISTRY[provider_name.lower()] = cls
+        return cls
+    return decorator
+
+def register_reranker(provider_name: str):
+    def decorator(cls: Type[BaseReranker]):
+        _RERANK_REGISTRY[provider_name.lower()] = cls
         return cls
     return decorator
 
 
+# --- The Factory ---
+
 class EmbeddingFactory:
     """
-    Factory that uses the dynamic registry.
+    Factory to retrieve specific embedding or reranking models.
     """
+
     @staticmethod
-    def get_embedding_model(config: EmbeddingConfig) -> BaseEmbedding:
+    def get_dense_model(config: EmbeddingConfig) -> BaseDenseEmbedding:
         provider = config.provider.lower()
-        
-        # 2. Dynamic Lookup
-        embedding_cls = _EMBEDDING_REGISTRY.get(provider)
-        
-        if not embedding_cls:
-            raise ValueError(
-                f"Unsupported embedding provider: '{provider}'. "
-                f"Available providers: {list(_EMBEDDING_REGISTRY.keys())}"
-            )
+        model_cls = _DENSE_REGISTRY.get(provider)
+        if not model_cls:
+            raise ValueError(f"Dense provider '{provider}' not found. Options: {list(_DENSE_REGISTRY.keys())}")
+        return model_cls(config)
+
+    @staticmethod
+    def get_sparse_model(config: EmbeddingConfig) -> BaseSparseEmbedding:
+        # Assuming the config has a 'sparse' sub-config as defined in previous steps
+        if not config.sparse.enabled:
+            raise ValueError("Sparse embedding is not enabled in configuration.")
             
-        return embedding_cls(config)
+        provider = config.sparse.provider.lower()
+        model_cls = _SPARSE_REGISTRY.get(provider)
+        if not model_cls:
+            raise ValueError(f"Sparse provider '{provider}' not found. Options: {list(_SPARSE_REGISTRY.keys())}")
+        return model_cls(config.sparse)
+
+    @staticmethod
+    def get_reranking_model(config: EmbeddingConfig) -> BaseReranker:
+        # This handles ColBERT or other rerankers defined in the embedding config
+        if not config.colbert.enabled:
+             raise ValueError("ColBERT/Reranking is not enabled in embedding configuration.")
+
+        # For now, we assume 'colbert' is the key, but this can be dynamic like the others
+        model_cls = _RERANK_REGISTRY.get("colbert") 
+        if not model_cls:
+            raise ValueError("ColBERT model not registered.")
+        return model_cls(config.colbert)

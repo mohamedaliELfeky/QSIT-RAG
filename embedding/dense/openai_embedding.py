@@ -3,14 +3,14 @@ from typing import List
 from openai import OpenAI, OpenAIError
 
 from data.config.embedding_config import EmbeddingConfig
-from .base import BaseEmbedding
-from .embedding_factory import register_embedding  # Import the decorator
+from .dense_base import BaseDenseEmbedding
+from ..embedding_factory import register_embedding  # Import the decorator
 
 logger = logging.getLogger(__name__)
 
 
 @register_embedding("openai")  # <--- This registers the class automatically
-class OpenAIEmbedding(BaseEmbedding):
+class OpenAIEmbedding(BaseDenseEmbedding):
     def __init__(self, config: EmbeddingConfig):
         super().__init__(config)
         self.client = OpenAI(api_key=config.api_key)

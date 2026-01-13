@@ -8,9 +8,9 @@ logger = logging.getLogger(__file__)
 
 from qdrant_client import QdrantClient, models
 
-from data.base_models.base_models import DistanceMetric
-from data.config.database_config import DatabaseConfig
-from data.base_models.search_result import VectorSearchResults
+from data_models.base_model.base_models import DistanceMetric
+from data_models.config.database_config import DatabaseConfig
+from data_models.base_model.search_result import VectorSearchResults
 from .base import BaseVectorDB
 from .vector_factory import register_vector_db
 

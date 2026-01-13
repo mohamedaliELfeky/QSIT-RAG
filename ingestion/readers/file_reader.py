@@ -3,7 +3,7 @@ from typing import List, Dict, Union, Type
 import logging
 logger = logging.getLogger(__file__)
 
-from data.base_models.base_models import BaseDocument
+from data_models.base_model.base_models import BaseDocument
 
 from .base_reader import BaseFileReader, FallbackReader
 from .text_reader import TextReader

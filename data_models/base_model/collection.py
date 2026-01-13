@@ -1,9 +1,9 @@
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 
-from data.base_models.base_models import BaseDocument
-from data.config.collection_config import ChunkingStrategy
-from data.config.embedding_config import EmbeddingConfig
+from .base_models import BaseDocument
+from data_models.config.collection_config import ChunkingStrategy
+from data_models.config.embedding_config import EmbeddingConfig
 
 
 class Collection(BaseModel):

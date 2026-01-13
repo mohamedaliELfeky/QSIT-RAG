@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Union
 from PIL import Image
 
-from data.base_models.image_document import ImageDocument, ImageContent
+from data_models.base_model.image_document import ImageDocument, ImageContent
 from .file_reader import BaseFileReader
 
 

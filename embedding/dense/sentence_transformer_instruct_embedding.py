@@ -1,7 +1,7 @@
 import logging
 from typing import List
 from sentence_transformers import SentenceTransformer
-from data.config.embedding_config import EmbeddingConfig
+from data_models.config.embedding_config import EmbeddingConfig
 from .dense_base import BaseDenseEmbedding
 from ..embedding_factory import register_dense
 

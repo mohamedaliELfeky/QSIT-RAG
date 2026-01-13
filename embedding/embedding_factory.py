@@ -1,5 +1,5 @@
 from typing import Dict, Type, Any, Optional
-from data.config.embedding_config import EmbeddingConfig
+from data_models.config.embedding_config import EmbeddingConfig
 
 # Import the new Base classes
 from .dense.dense_base import BaseDenseEmbedding

@@ -5,8 +5,8 @@ import logging
 logger = logging.getLogger(__file__)
 
 
-from data.config.data_sources_config import DataSourceConfig
-from data.base_models.base_models import BaseDocument
+from data_models.config.data_sources_config import DataSourceConfig
+from data_models.base_model.base_models import BaseDocument
 from ingestion.readers.file_reader import FileReader
 
 from .base_source import BaseSourceReader

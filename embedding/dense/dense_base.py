@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
-from data.config.embedding_config import EmbeddingConfig
+from data_models.config.embedding_config import EmbeddingConfig
 
 class BaseDenseEmbedding(ABC):
     def __init__(self, config: EmbeddingConfig):

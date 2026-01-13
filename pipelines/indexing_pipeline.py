@@ -1,7 +1,7 @@
 import logging
 from typing import List
 
-from data.config.rag_config import RAGConfiguration
+from data_models.config.rag_config import RAGConfiguration
 from ingestion.collection_loader import CollectionLoader
 from ingestion.readers.file_reader import FileReader
 from ingestion.sources.file_source import FileSourceReader

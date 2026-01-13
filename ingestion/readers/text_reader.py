@@ -1,6 +1,6 @@
 from typing import Union
 from pathlib import Path
-from data.base_models.text_document import TextFileDocument
+from data_models.base_model.text_document import TextFileDocument
 
 from .base_reader import BaseFileReader
 

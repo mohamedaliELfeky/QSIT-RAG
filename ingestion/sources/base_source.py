@@ -2,7 +2,7 @@ from typing import List, Dict, Any
 
 from abc import ABC, abstractmethod
 
-from data.config.data_sources_config import DataSourceConfig
+from data_models.config.data_sources_config import DataSourceConfig
 
 class BaseSourceReader(ABC):
 

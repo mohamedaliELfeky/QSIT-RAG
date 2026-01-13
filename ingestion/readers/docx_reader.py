@@ -3,7 +3,7 @@ from pathlib import Path
 
 import docx
 
-from data.base_models.docx_document import DocxDocument, DocElement, TableElement
+from data_models.base_model.docx_document import DocxDocument, DocElement, TableElement
 from .base_reader import BaseFileReader
 
 

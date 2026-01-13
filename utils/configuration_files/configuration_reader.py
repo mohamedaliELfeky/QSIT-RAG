@@ -2,7 +2,8 @@ import json
 import os
 import re
 from typing import Any
-from data.config.rag_config import RAGConfiguration
+
+from data_models.config.rag_config import RAGConfiguration
 
 class ConfigurationReader:
     @staticmethod
@@ -17,6 +18,7 @@ class ConfigurationReader:
             if match:
                 return os.getenv(match.group(1), data)
         return data
+    
 
     @staticmethod
     def load_config(path: str) -> RAGConfiguration:

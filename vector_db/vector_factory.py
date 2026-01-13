@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, Type
 
-from data.config.database_config import DatabaseConfig
+from data_models.config.database_config import DatabaseConfig
 from .base import BaseVectorDB
 
 logger = logging.getLogger(__name__)

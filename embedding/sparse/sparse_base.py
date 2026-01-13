@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any
-from data.config.embedding_config import SparseEmbeddingConfig
+from data_models.config.embedding_config import SparseEmbeddingConfig
 
 # Qdrant and others usually expect sparse vectors as a dict of indices and values
 # e.g., {"indices": [10, 20], "values": [0.5, 0.8]}

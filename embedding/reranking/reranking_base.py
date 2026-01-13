@@ -2,11 +2,11 @@ from abc import ABC, abstractmethod
 from typing import List, Union, Any
 
 # CORRECTED IMPORT: 'base_model' (singular) to match your folder structure
-from data.base_model.search_result import VectorSearchResults
+from data_models.base_model.search_result import VectorSearchResults
 
 # We might want to accept different config types depending on the reranker
-from data.config.embedding_config import RerankingEmbeddingConfig
-from data.config.query_config import RerankingConfig
+from data_models.config.embedding_config import RerankingEmbeddingConfig
+from data_models.config.query_config import RerankingConfig
 
 class BaseReranker(ABC):
     # Update type hint to be flexible (ColBERT config or generic Reranking config)

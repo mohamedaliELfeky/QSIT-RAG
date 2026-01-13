@@ -7,9 +7,9 @@ from chunkwise import Chunker as CWChunker
 from chunkwise.chunk import Chunk as CWChunk
 from chunkwise.config import ChunkConfig as CWChunkConfig
 
-from data.base_model.base_models import BaseDocument
-from data.base_model.chunk import Chunk as QSITChunk
-from data.config.chunking_strategy import ChunkingStrategy
+from data_models.base_model.base_models import BaseDocument
+from data_models.base_model.chunk import Chunk as QSITChunk
+from data_models.config.chunking_strategy import ChunkingStrategy
 
 logger = logging.getLogger(__name__)
 

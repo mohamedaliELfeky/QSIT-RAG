@@ -4,10 +4,10 @@ import logging
 
 logger = logging.getLogger(__file__)
 
-from data.base_model.collection import Collection
-from data.config.collection_config import CollectionConfig
-from data.config.collection_config import ChunkingStrategy
-from data.config.data_sources_config import DataSourceConfig
+from data_models.base_model.collection import Collection
+from data_models.config.collection_config import CollectionConfig
+from data_models.config.collection_config import ChunkingStrategy
+from data_models.config.data_sources_config import DataSourceConfig
 
 from .sources.folder_source import FolderSourceReader
 from .sources.file_source import FileSourceReader

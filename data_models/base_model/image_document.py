@@ -1,7 +1,7 @@
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, SkipValidation
 from typing import Optional, Literal, Union
-from PIL import Image
+from PIL.Image import Image as PILImage
 from .base_models import BaseDocument, SourceType
     
 
@@ -24,4 +24,4 @@ class ImageDocument(BaseDocument):
     metadata:Union[ImageContent, dict]  # To allow flexibility in metadata
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    content: Image
+    content: SkipValidation[PILImage]

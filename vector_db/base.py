@@ -8,8 +8,8 @@ from abc import ABC, abstractmethod
 from typing import Dict, List, Any, Optional, Union
 from pydantic import BaseModel
 
-from data.base_models.search_result import VectorSearchResults
-from data.base_models.base_models import DistanceMetric
+from data_models.base_model.search_result import VectorSearchResults
+from data_models.base_model.base_models import DistanceMetric
 
 class BaseVectorDB(ABC):
 

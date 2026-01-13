@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger(__file__)
 
-from data.base_models.collection import Collection
+from data.base_model.collection import Collection
 from data.config.collection_config import CollectionConfig
 from data.config.collection_config import ChunkingStrategy
 from data.config.data_sources_config import DataSourceConfig

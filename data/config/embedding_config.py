@@ -6,21 +6,19 @@ class RetryConfig(BaseModel):
     retry_delay: int
     exponential_backoff: bool
 
-
 class SparseEmbeddingConfig(BaseModel):
     """Configuration for Sparse Embeddings (e.g., BM25)"""
     enabled: bool = False
-    provider: str = "bm25"  # Options: 'bm25', 'splade'
-    model_path: Optional[str] = None # Path to tokenizer or model if needed
-    modifier: Optional[str] = None  # For specific BM25 variations
+    provider: str = "bm25"
+    model_path: Optional[str] = None
+    modifier: Optional[str] = None
 
 class RerankingEmbeddingConfig(BaseModel):
     """Configuration for Late Interaction (ColBERT)"""
     enabled: bool = False
     model_name: str = "colbert-ir/colbertv2.0"
-    max_tokens: int = 512  # Max tokens per chunk for ColBERT
-    compression_dim: int = 32 # ColBERT compression (usually 32 or 128)
-
+    max_tokens: int = 512
+    compression_dim: int = 32
 
 class EmbeddingConfig(BaseModel):
     provider: str
@@ -29,6 +27,11 @@ class EmbeddingConfig(BaseModel):
     batch_size: int
     dimensions: int
     retry_config: RetryConfig
+
+    # Default instruction for Queries (used by E5-Instruct, Instructor-XL, etc.)
+    instruction: Optional[str] = None 
+    # Optional instruction for Documents (used by Instructor-XL, usually None for E5)
+    document_instruction: Optional[str] = None
 
     # 2. Hybrid & Late Interaction Extensions
     sparse: SparseEmbeddingConfig = Field(default_factory=SparseEmbeddingConfig)

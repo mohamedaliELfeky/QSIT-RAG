@@ -1,4 +1,8 @@
 import logging
+from utils.logging_utils.setup import setup_logging
+# Setup logging
+setup_logging(logging.INFO)
+
 import os
 from utils.configuration_files.configuration_reader import ConfigurationReader
 from pipelines.indexing_pipeline import IndexingPipeline
@@ -12,7 +16,7 @@ def run_indexing():
     os.makedirs("./data/documents", exist_ok=True)
     
     # Path to your updated config.json
-    config_path = "D:\\Projects and POCs\\RAG for everyone\\qsit_rag\\configuration\\application_config.json"
+    config_path = "\\configuration\\application_config.json"
     
     try:
         # 1. Load Config

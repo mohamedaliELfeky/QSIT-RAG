@@ -21,7 +21,7 @@
         },
         {
           "type": "file",
-          "path": "D:/Projects and POCs/RAG for everyone/qsit_rag/anything.txt"
+          "path": "./data/attentionIsAllYouNeed.pdf"
         }
         
       ],

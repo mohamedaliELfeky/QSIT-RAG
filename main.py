@@ -16,7 +16,7 @@ def run_indexing():
     os.makedirs("./data/documents", exist_ok=True)
     
     # Path to your updated config.json
-    config_path = "\\configuration\\application_config.json"
+    config_path = ".\\configuration\\application_config.json"
     
     try:
         # 1. Load Config

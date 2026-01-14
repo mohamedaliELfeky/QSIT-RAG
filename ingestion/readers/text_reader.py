@@ -9,7 +9,7 @@ class TextReader(BaseFileReader):
 
     def read(self, txt_path:Union[Path, str])-> TextFileDocument:
         content = None
-        with open(txt_path, 'r') as file:
+        with open(txt_path, 'r', encoding="utf-8-sig") as file:
             content = file.read()
 
         return TextFileDocument(

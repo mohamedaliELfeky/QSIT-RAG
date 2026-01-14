@@ -23,7 +23,7 @@ class BaseDocument(BaseModel):
     id: str
     source_name: str
     source_path: Union[str, Path]
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    metadata: Dict[str, Any]|None = Field(default_factory=dict)
     
     # Each subclass defines its own 'content' type
     source_type: SourceType
